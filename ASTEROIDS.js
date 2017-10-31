@@ -116,7 +116,7 @@ function processDiagnostics() {
     if (eatKey(KEY_MIXED))
         g_allowMixedActions = !g_allowMixedActions;
 
-    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity; 
+    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
 
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
@@ -177,8 +177,8 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        ship   : "https://notendur.hi.is/~pk/308G/images/ship.png",
-        ship2  : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
+        ship   : "https://notendur.hi.is/~pee4/Tolvuleikjaforritun/images/2D_GOBLIN_R.png",
+        ship2  : "https://notendur.hi.is/~pee4/Tolvuleikjaforritun/images/2D_GOBLIN_L.png",
         rock   : "https://notendur.hi.is/~pk/308G/images/rock.png"
     };
 
