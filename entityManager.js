@@ -152,22 +152,20 @@ update: function(du) {
         var aCategory = this._categories[c];
         var i = 0;
 
-        while (i < aCategory.length) {
-            console.log(aCategory[i]);
-            var status = aCategory[i].update(du);
+        for(var i = 0; i < aCategory.length; i++) {
+            aCategory[i].update(du);
 
-            if (status === this.KILL_ME_NOW) {
-                // remove the dead guy, and shuffle the others down to
-                // prevent a confusing gap from appearing in the array
-                aCategory.splice(i,1);
-            }
-            else {
-                ++i;
-            }
+            // if (status === this.KILL_ME_NOW) {
+            //     // remove the dead guy, and shuffle the others down to
+            //     // prevent a confusing gap from appearing in the array
+            //     aCategory.splice(i,1);
+            // }
+            // else {
+            // }
         }
     }
 
-    if (this._rocks.length === 0) this._generateRocks();
+    // if (this._rocks.length === 0) this._generateRocks();
 
 },
 

@@ -30,20 +30,16 @@ Character.prototype.KEY_RIGHT = 'D'.charCodeAt(0);
 // Default Values.
 Character.prototype.rotation = 0;
 Character.prototype.cx = 200;
-Character.prototype.cy = g_canvas.height - height/2;
+Character.prototype.cy = 100;
 
 
 Character.prototype.update = function (du) {
 
-  // Unregister
   spatialManager.unregister(this);
-  if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
-  // Update position
-  if (eatKey(this.KEY_LEFT)) this.cx -= 5 * du;
-  if (eatKey(this.KEY_RIGHT)) this.cx += 5 * du;
+  if (eatKey(this.KEY_LEFT)) this.cx -= 30 * du;
+  if (eatKey(this.KEY_RIGHT)) this.cx += 30 * du;
 
-  // Register
   spatialManager.register(this);
 };
 
