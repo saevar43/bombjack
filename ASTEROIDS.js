@@ -49,8 +49,8 @@ var g_ctx = g_canvas.getContext("2d");
 function createInitialCharacter() {
 
      entityManager.generateCharacter({
-         cx : 200,
-         cy : 200
+         cx : 300,
+         cy : 568
      });
 
 }
@@ -116,7 +116,7 @@ function processDiagnostics() {
     if (eatKey(KEY_MIXED))
         g_allowMixedActions = !g_allowMixedActions;
 
-    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
+    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity; 
 
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
