@@ -177,9 +177,8 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        ship   : "https://notendur.hi.is/~pee4/Tolvuleikjaforritun/images/2D_GOBLIN_R.png",
-        ship2  : "https://notendur.hi.is/~pee4/Tolvuleikjaforritun/images/2D_GOBLIN_L.png",
-        rock   : "https://notendur.hi.is/~pk/308G/images/rock.png"
+        char_r   : "https://notendur.hi.is/~pee4/Tolvuleikjaforritun/images/2D_GOBLIN_R.png",
+        char_l  : "https://notendur.hi.is/~pee4/Tolvuleikjaforritun/images/2D_GOBLIN_L.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -189,12 +188,8 @@ var g_sprites = {};
 
 function preloadDone() {
 
-    g_sprites.ship  = new Sprite(g_images.ship);
-    g_sprites.ship2 = new Sprite(g_images.ship2);
-    g_sprites.rock  = new Sprite(g_images.rock);
-
-    g_sprites.bullet = new Sprite(g_images.ship);
-    g_sprites.bullet.scale = 0.25;
+    g_sprites.char_r  = new Sprite(g_images.char_r);
+    g_sprites.char_l = new Sprite(g_images.char_l);
 
     entityManager.init();
     createInitialCharacter();

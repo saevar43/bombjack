@@ -15,7 +15,7 @@
 function Character(descr) {
   this.setup(descr);
 
-  this.sprite = g_sprites.ship2;
+  this.sprite = g_sprites.char_l;
 
   this._scale = 1;
 
@@ -36,7 +36,7 @@ Character.prototype.rotation = 0;
 Character.prototype.cx = 200;
 Character.prototype.cy = 100;
 
-var NOMINAL_GRAVITY = 15;
+var NOMINAL_GRAVITY = 10;
 
 Character.prototype.computeGravity = function () {
   return g_useGravity ? NOMINAL_GRAVITY : 0;
@@ -46,9 +46,15 @@ Character.prototype.update = function (du) {
 
   spatialManager.unregister(this);
 
-  if (eatKey(this.KEY_LEFT) && this.cx - this._width/2 > 0) this.cx -= 30 * du;
-  if (eatKey(this.KEY_RIGHT) && this.cx + this._width/2 < g_canvas.width) this.cx += 30 * du;
-  if (eatKey(this.KEY_JUMP) && this.cy - this._height/2 > 0) this.cy -= 200;
+  if (eatKey(this.KEY_LEFT) && this.cx - this._width/2 > 0) {
+    this.sprite = g_sprites.char_l;
+    this.cx -= 30 * du;
+  }
+  if (eatKey(this.KEY_RIGHT) && this.cx + this._width/2 < g_canvas.width) {
+    this.sprite = g_sprites.char_r;
+    this.cx += 30 * du;
+  }
+  if (eatKey(this.KEY_JUMP) && this.cy - this._height/2 > 0) this.cy -= 200 * du;
   if (this.cy + this._height/2 < g_canvas.height) this.cy += this.computeGravity();
 
   spatialManager.register(this);
