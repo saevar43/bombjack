@@ -1,17 +1,3 @@
-// ===============
-// CHARACTER STUFF
-// ===============
-
-"use strict"
-
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
-// Character constructor
 function Character(descr) {
   this.setup(descr);
 
@@ -22,47 +8,53 @@ function Character(descr) {
   this._width = this.sprite.width;
 
   this._height = this.sprite.height;
-};
+}
 
 Character.prototype = new Entity();
 
-// Key codes for control.
-Character.prototype.KEY_JUMP = 'W'.charCodeAt(0);
-Character.prototype.KEY_LEFT = 'A'.charCodeAt(0);
-Character.prototype.KEY_RIGHT = 'D'.charCodeAt(0);
+Character.prototype.leftBound = 0;
+Character.prototype.rightBound = 600;
+Character.prototype.cx = 300;
+Character.prototype.cy = 568;
+Character.prototype.velY = 0;
+Character.prototype.velX = 7.5;
+Character.prototype.onGround = true;
+Character.prototype.gravity = 2.5;
 
-// Default Values.
-Character.prototype.rotation = 0;
-Character.prototype.cx = 200;
-Character.prototype.cy = 100;
+Character.prototype.GO_LEFT = 'A'.charCodeAt(0);
+Character.prototype.GO_RIGHT = 'D'.charCodeAt(0);
+Character.prototype.JUMP = 'W'.charCodeAt(0);
 
-var NOMINAL_GRAVITY = 10;
-
-Character.prototype.computeGravity = function () {
-  return g_useGravity ? NOMINAL_GRAVITY : 0;
+Character.prototype.startJump = function (du) {
+  if (this.onGround) {
+    this.velY = -30.0 * du;
+    this.onGround = false;
+  }
 };
 
 Character.prototype.update = function (du) {
-
-  spatialManager.unregister(this);
-
-  if (eatKey(this.KEY_LEFT) && this.cx - this._width/2 > 0) {
+  if (keys[this.GO_LEFT] && this.cx - (this._width/2) > this.leftBound) {
     this.sprite = g_sprites.char_l;
-    this.cx -= 30 * du;
+    this.cx -= this.velX * du;
   }
-  if (eatKey(this.KEY_RIGHT) && this.cx + this._width/2 < g_canvas.width) {
+  if (keys[this.GO_RIGHT] && this.cx + (this._width/2) < this.rightBound) {
     this.sprite = g_sprites.char_r;
-    this.cx += 30 * du;
+    this.cx += this.velX * du;
   }
-  if (eatKey(this.KEY_JUMP) && this.cy - this._height/2 > 0) this.cy -= 200 * du;
-
-  if (this.cy + this._height/2 < g_canvas.height) {
-    if (!platformCollidesWith(this.cx, this.cy+this._height/2)) this.cy += this.computeGravity();
+  if (eatKey(this.JUMP)) {
+    this.startJump(du);
   }
 
-  // if (platformCollidesWith(this.cx, this.cy+this._height/2)) g_useGravity =! g_useGravity;
+  // All that goes up, must come down.
+  this.velY += this.gravity * du;
+  this.cy += this.velY * du;
 
-  spatialManager.register(this);
+  // Don't fall out of canvas.
+  if (this.cy > 568) {
+    this.cy = 568;
+    this.velY = 0;
+    this.onGround = true;
+  }
 };
 
 Character.prototype.render = function (ctx) {
