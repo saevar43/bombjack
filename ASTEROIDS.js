@@ -85,6 +85,8 @@ function updateSimulation(du) {
 
     entityManager.update(du);
 
+    updatePlatform(); //ef við látum platform vera entity þá þurfum við ekki að kalla á þetta
+
     // Prevent perpetual firing!
     //eatKey(Ship.prototype.KEY_FIRE);
 }
@@ -163,6 +165,7 @@ function processDiagnostics() {
 function renderSimulation(ctx) {
 
     entityManager.render(ctx);
+    renderPlatform(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
@@ -177,8 +180,8 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        char_r   : "https://notendur.hi.is/~pee4/Tolvuleikjaforritun/images/2D_GOBLIN_R.png",
-        char_l  : "https://notendur.hi.is/~pee4/Tolvuleikjaforritun/images/2D_GOBLIN_L.png"
+        char_r   : "2D_GOBLIN_R.png",
+        char_l  : "2D_GOBLIN_L.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);

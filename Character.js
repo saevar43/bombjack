@@ -55,7 +55,12 @@ Character.prototype.update = function (du) {
     this.cx += 30 * du;
   }
   if (eatKey(this.KEY_JUMP) && this.cy - this._height/2 > 0) this.cy -= 200 * du;
-  if (this.cy + this._height/2 < g_canvas.height) this.cy += this.computeGravity();
+
+  if (this.cy + this._height/2 < g_canvas.height) {
+    if (!platformCollidesWith(this.cx, this.cy+this._height/2)) this.cy += this.computeGravity();
+  }
+
+  // if (platformCollidesWith(this.cx, this.cy+this._height/2)) g_useGravity =! g_useGravity;
 
   spatialManager.register(this);
 };
