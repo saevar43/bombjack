@@ -46,8 +46,14 @@ Character.prototype.update = function (du) {
   }
 
   // All that goes up, must come down.
-  this.velY += this.gravity * du;
+  if (!platformCollidesWith(this.cx, this.cy+this._height/2)) this.velY += this.gravity * du;
   this.cy += this.velY * du;
+
+  //"no gravity" if character is on platform
+  if (platformCollidesWith(this.cx, this.cy+this._height/2)) {
+    this.velY = 0;
+    this.onGround = true;
+  }
 
   // Don't fall out of canvas.
   if (this.cy > 568) {

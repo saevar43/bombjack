@@ -81,11 +81,11 @@ function gatherInputs() {
 
 function updateSimulation(du) {
 
+    updatePlatform(); //ef við látum platform vera entity þá þurfum við ekki að kalla á þetta
+
     processDiagnostics();
 
     entityManager.update(du);
-
-    updatePlatform(); //ef við látum platform vera entity þá þurfum við ekki að kalla á þetta
 
     // Prevent perpetual firing!
     //eatKey(Ship.prototype.KEY_FIRE);
@@ -164,8 +164,8 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-    entityManager.render(ctx);
     renderPlatform(ctx);
+    entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }

@@ -6,11 +6,10 @@ var halfWidth = 20;
 function renderPlatform(ctx) {
   for (var i = 0; i<23; i++) { //23 hæðir/línur
 		for (var j = 0; j<15; j++) {
-      if (platform[i][j] != 0) {
+      if (platform[i][j] === 1) {
         var cx = 20+j*40;
 			  var cy = 40+i*25;
-        var value = platform[i][j];
-      fillPlatform (ctx, cx, cy, value);
+        fillPlatform (ctx, cx, cy);
       }
 		}
 	}
@@ -25,28 +24,18 @@ function platformCollidesWith(nextX, nextY) {
     var i = Math.round((nextY-50)/25); //hér er y gildið, eða i gildi fylkisins
     if (i<0 || i>22) return false;
     if (j<0 || j>14) return false;
-    if (platform[i][j] !== 0) { //ath kemur villa þegar kallinn fer út fyrir array (of langt upp)
-      return true; //boltinn klessir á og þarf að skipta um stefnu
-
+    if (platform[i][j] !== 0) {
+      return true; //collision
     }
-
-    return false; //það var enginn kassi fyrir
+    return false; //no collision
 }
 
 
-function fillPlatform(ctx, x, y, value) { //value 1 er platform. Bætum meira við seinna
+function fillPlatform(ctx, x, y) { //value 1 er platform. Bætum meira við seinna
     ctx.fill();
-    ctx.fillStyle = "rgba(255, 0, 0, 1)"
-    // ctx.fillStyle = red;
+    ctx.fillStyle = "rgba(255, 0, 0, 1)";
     ctx.fillRect(x - halfWidth, y - halfHeight, halfWidth *2, halfHeight*2);
-    //ctx.fillStyle = 'black';
 }
-
-
-
-
-
-
 
 
 //Array fyrir platfroms. 0 gildi þýðir tómt. 1 þýðir platform.
