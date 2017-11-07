@@ -33,7 +33,7 @@ function platformCollidesWith(nextX, nextY) {
 
 function fillPlatform(ctx, x, y) { //value 1 er platform. Bætum meira við seinna
     ctx.fill();
-    ctx.fillStyle = "rgba(255, 0, 0, 1)";
+    ctx.fillStyle = "rgba(160,82,45)";
     ctx.fillRect(x - halfWidth, y - halfHeight, halfWidth *2, halfHeight*2);
 }
 
@@ -45,8 +45,8 @@ var platform = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,1,1,1,1,1,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,1,1,1,1,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],

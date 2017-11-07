@@ -52,8 +52,11 @@ Character.prototype.update = function (du) {
   //"no gravity" if character is on platform
   if (platformCollidesWith(this.cx, this.cy+this._height/2)) {
     this.velY = 0;
-    this.onGround = true;
+    this.onGround = true; //Can jump from platform
   }
+
+  //Collides with platforms from below when jumping
+  if(platformCollidesWith(this.cx, this.cy+this.velY*du)) this.velY = 0;
 
   // Don't fall out of canvas.
   if (this.cy > 568) {
@@ -61,6 +64,14 @@ Character.prototype.update = function (du) {
     this.velY = 0;
     this.onGround = true;
   }
+
+  //Don't jump out of canvas
+  if (this.cy-this._height/3 < 0) {
+    this.cy = 0+this._height/2;
+    this.velY = 0;
+  }
+
+
 };
 
 Character.prototype.render = function (ctx) {
