@@ -35,12 +35,12 @@ need to tweak it if you do something "non-obvious" in yours.
 
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
+g_canvas.style.background = "url('background2.jpg')";
 
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
-
 
 // ====================
 // CREATE INITIAL SHIPS
@@ -181,7 +181,7 @@ function requestPreloads() {
 
     var requiredImages = {
         char_r   : "2D_GOBLIN_R.png",
-        char_l  : "2D_GOBLIN_L.png"
+        char_l  : "2D_GOBLIN_L.png",
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
