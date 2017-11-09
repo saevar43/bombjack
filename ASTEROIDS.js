@@ -35,24 +35,37 @@ need to tweak it if you do something "non-obvious" in yours.
 
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
-g_canvas.style.background = "url('background2.jpg')";
+g_canvas.style.background = "url('images/backgrounds/background2.jpg')";
 
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
-// ====================
-// CREATE INITIAL SHIPS
-// ====================
+// =======================
+// CREATE INITIAL ENTITIES
+// =======================
 
+// Player character.
 function createInitialCharacter() {
 
      entityManager.generateCharacter({
-         cx : 300,
+         cx : 500,
          cy : 568
      });
 
+}
+
+// Enemies.
+function createEnemies() {
+  entityManager.generateEnemy();
+
+  entityManager.generateEnemy({
+    cx : 568,
+    cy : 190,
+    leftBound : 440,
+    rightBound : 600
+  });
 }
 
 // =============
@@ -63,7 +76,6 @@ function gatherInputs() {
     // Nothing to do here!
     // The event handlers do everything we need for now.
 }
-
 
 // =================
 // UPDATE SIMULATION
@@ -81,86 +93,38 @@ function gatherInputs() {
 
 function updateSimulation(du) {
 
-    updatePlatform(); //ef við látum platform vera entity þá þurfum við ekki að kalla á þetta
+    updatePlatform(); //If platforms are entities we don't need this
 
     processDiagnostics();
 
     entityManager.update(du);
-
-    // Prevent perpetual firing!
-    //eatKey(Ship.prototype.KEY_FIRE);
 }
 
+// =========================
 // GAME-SPECIFIC DIAGNOSTICS
+// =========================
 
 var g_allowMixedActions = true;
 var g_useGravity = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
-var KEY_MIXED   = keyCode('M');;
-var KEY_GRAVITY = keyCode('G');
+var KEY_MIXED   = keyCode('M');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
 
-var KEY_HALT  = keyCode('H');
-var KEY_RESET = keyCode('R');
-
-var KEY_0 = keyCode('0');
-
-var KEY_1 = keyCode('1');
-var KEY_2 = keyCode('2');
-
-var KEY_K = keyCode('K');
-
 function processDiagnostics() {
 
-    if (eatKey(KEY_MIXED))
-        g_allowMixedActions = !g_allowMixedActions;
-
-    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
+    if (eatKey(KEY_MIXED)) g_allowMixedActions = !g_allowMixedActions;
 
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
-
-    //if (eatKey(KEY_HALT)) entityManager.haltShips();
-
-    //if (eatKey(KEY_RESET)) entityManager.resetShips();
-
-    //if (eatKey(KEY_0)) entityManager.toggleRocks();
-
-    // if (eatKey(KEY_1)) entityManager.generateShip({
-    //     cx : g_mouseX,
-    //     cy : g_mouseY,
-    //
-    //     sprite : g_sprites.ship});
-    //
-    // if (eatKey(KEY_2)) entityManager.generateShip({
-    //     cx : g_mouseX,
-    //     cy : g_mouseY,
-    //
-    //     sprite : g_sprites.ship2
-    //     });
-    //
-    // if (eatKey(KEY_K)) entityManager.killNearestShip(
-    //     g_mouseX, g_mouseY);
 }
-
 
 // =================
 // RENDER SIMULATION
 // =================
-
-// We take a very layered approach here...
-//
-// The primary `render` routine handles generic stuff such as
-// the diagnostic toggles (including screen-clearing).
-//
-// It then delegates the game-specific logic to `gameRender`
-
-
-// GAME-SPECIFIC RENDERING
 
 function renderSimulation(ctx) {
 
@@ -180,8 +144,11 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        char_r   : "2D_GOBLIN_R.png",
-        char_l  : "2D_GOBLIN_L.png",
+        char_r   : "images/character/2D_GOBLIN_R.png",
+        char_l  : "images/character/2D_GOBLIN_L.png",
+        enemy_l : "images/enemies/enemy-l.png",
+        enemy_r : "images/enemies/enemy-r.png",
+        heart : "images/misc/heart15px.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -194,8 +161,14 @@ function preloadDone() {
     g_sprites.char_r  = new Sprite(g_images.char_r);
     g_sprites.char_l = new Sprite(g_images.char_l);
 
+    g_sprites.enemy_l = new Sprite(g_images.enemy_l);
+    g_sprites.enemy_r = new Sprite(g_images.enemy_r);
+
+    g_sprites.heart = new Sprite(g_images.heart);
+
     entityManager.init();
     createInitialCharacter();
+    createEnemies();
 
     main.init();
 }
