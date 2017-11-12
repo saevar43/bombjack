@@ -148,7 +148,8 @@ function requestPreloads() {
         char_l  : "images/character/2D_GOBLIN_L.png",
         enemy_l : "images/enemies/enemy-l.png",
         enemy_r : "images/enemies/enemy-r.png",
-        heart : "images/misc/heart15px.png"
+        heart : "images/misc/heart15px.png",
+        collectible : "images/collectibles/bomb.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -166,7 +167,10 @@ function preloadDone() {
 
     g_sprites.heart = new Sprite(g_images.heart);
 
+    g_sprites.collectible = new Sprite(g_images.collectible);
+
     entityManager.init();
+    generateCollectibles(platform);
     createInitialCharacter();
     createEnemies();
 

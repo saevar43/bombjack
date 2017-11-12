@@ -27,7 +27,7 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-// _collectibles : [],
+_collectibles : [],
 _enemies : [],
 _characters : [],
 
@@ -50,7 +50,7 @@ KILL_ME_NOW : -1,
 //
 deferredSetup : function () {
     //this._categories = [this._rocks, this._bullets, this._ships];
-    this._categories = [this._enemies, this._characters];
+    this._categories = [this._enemies, this._characters, this._collectibles];
 },
 
 init: function() {
@@ -64,6 +64,10 @@ generateCharacter: function(descr) {
 
 generateEnemy: function(descr) {
   this._enemies.push(new Enemy(descr));
+},
+
+generateCollectible: function(descr) {
+  this._collectibles.push(new Collectible(descr));
 },
 
 update: function(du) {
