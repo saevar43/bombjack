@@ -147,7 +147,7 @@ Character.prototype.update = function (du) {
     this.velY = 0;
   }
 
-  if (this.isColliding()) {
+  if (this.isColliding().isEnemy) {
     this.die();
   } else {
     spatialManager.register(this);

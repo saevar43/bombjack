@@ -7,12 +7,22 @@ function Collectible(descr) {
   this._width = this.sprite.width;
   this. height = this.sprite.height;
   this.radius = this._width/2;
+
+  this._isCollected = false;
 }
 
 //Collectibles are entities
 Collectible.prototype = new Entity();
 
-Collectible.prototype.update = function(du) { //Collectibles hverfa þegar þeim er náð, eftir að bæta við
+Collectible.prototype.update = function(du) {
+  spatialManager.unregister(this);
+  if (this._isCollected) return entityManager.KILL_ME_NOW;
+
+  if (this.isColliding()) {
+    this._isCollected = true;
+  } else {
+    spatialManager.register(this);
+  }
 }
 
 Collectible.prototype.render = function (ctx) {

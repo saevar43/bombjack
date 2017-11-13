@@ -7,6 +7,8 @@ function Enemy(descr) {
   this._width = this.sprite.width;
   this. height = this.sprite.height;
   this.radius = this._width/2;
+
+  this.isEnemy = true;
 }
 
 // Enemies are entities.

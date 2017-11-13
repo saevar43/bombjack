@@ -85,6 +85,7 @@ findEntityInRange: function(posX, posY, radius) {
     sumRadius *= sumRadius;
 
     if (minDistSq < sumRadius) {
+      console.log(e.entity);
       return e.entity;
     }
     return false;

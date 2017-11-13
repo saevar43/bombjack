@@ -55,7 +55,6 @@ deferredSetup : function () {
 
 init: function() {
   // empty for now
-  // generate collectibles here??
 },
 
 generateCharacter: function(descr) {
@@ -77,8 +76,14 @@ update: function(du) {
         var aCategory = this._categories[c];
         var i = 0;
 
-        for(var i = 0; i < aCategory.length; i++) {
-            aCategory[i].update(du);
+        while (i < aCategory.length) {
+            var status = aCategory[i].update(du);
+
+            if (status === this.KILL_ME_NOW) {
+              aCategory.splice(i,1);
+            } else {
+              i++;
+            }
 
         }
     }

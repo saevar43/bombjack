@@ -46,6 +46,8 @@ Entity.prototype.setup = function (descr) {
     this._isDeadNow = false;
 };
 
+Entity.prototype.isEnemy = false;
+
 Entity.prototype.setPos = function (cx, cy) {
     this.cx = cx;
     this.cy = cy;
