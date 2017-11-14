@@ -18,8 +18,9 @@ Collectible.prototype.update = function(du) {
   spatialManager.unregister(this);
   if (this._isCollected) return entityManager.KILL_ME_NOW;
 
-  if (this.isColliding()) {
+  if (this.isColliding().isCharacter) {
     this._isCollected = true;
+    g_currentLevel.collectibles--;
   } else {
     spatialManager.register(this);
   }

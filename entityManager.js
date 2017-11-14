@@ -54,7 +54,9 @@ deferredSetup : function () {
 },
 
 init: function() {
-  // empty for now
+  this._collectibles = [];
+  this._enemies = [];
+  this.deferredSetup();
 },
 
 generateCharacter: function(descr) {
@@ -67,6 +69,10 @@ generateEnemy: function(descr) {
 
 generateCollectible: function(descr) {
   this._collectibles.push(new Collectible(descr));
+},
+
+getPlayerChar: function() {
+  return this._characters[0];
 },
 
 update: function(du) {

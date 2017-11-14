@@ -33,10 +33,6 @@ need to tweak it if you do something "non-obvious" in yours.
 
 /* jshint browser: true, devel: true, globalstrict: true */
 
-var g_canvas = document.getElementById("myCanvas");
-var g_ctx = g_canvas.getContext("2d");
-g_canvas.style.background = "url('images/backgrounds/background2.jpg')";
-
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -48,25 +44,10 @@ g_canvas.style.background = "url('images/backgrounds/background2.jpg')";
 
 // Player character.
 function createInitialCharacter() {
-
-     entityManager.generateCharacter({
-         cx : 500,
-         cy : 568
-     });
-
+     entityManager.generateCharacter();
 }
 
-// Enemies.
-function createEnemies() {
-  entityManager.generateEnemy();
 
-  entityManager.generateEnemy({
-    cx : 568,
-    cy : 190,
-    leftBound : 440,
-    rightBound : 600
-  });
-}
 
 // =============
 // GATHER INPUTS
@@ -93,25 +74,29 @@ function gatherInputs() {
 
 function updateSimulation(du) {
 
-    updatePlatform(); //If platforms are entities we don't need this
-
     processDiagnostics();
 
     entityManager.update(du);
+
+    if (g_currentLevel.number === 1 && g_currentLevel.collectibles === 0) {
+      startLevel(level2);
+    }
+
+    if (g_currentLevel.number === 2 && g_currentLevel.collectibles === 0) {
+      startLevel(level3);
+    }
 }
 
 // =========================
 // GAME-SPECIFIC DIAGNOSTICS
 // =========================
 
-var g_allowMixedActions = true;
-var g_useGravity = false;
-var g_useAveVel = true;
-var g_renderSpatialDebug = false;
-
 var KEY_MIXED   = keyCode('M');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
+var KEY_LEVEL1 = keyCode('1');
+var KEY_LEVEL2 = keyCode('2');
+var KEY_LEVEL3 = keyCode('3');
 
 function processDiagnostics() {
 
@@ -120,6 +105,12 @@ function processDiagnostics() {
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
+
+    if (eatKey(KEY_LEVEL1)) startLevel(level1);
+
+    if (eatKey(KEY_LEVEL2)) startLevel(level2);
+
+    if (eatKey(KEY_LEVEL3)) startLevel(level3);
 }
 
 // =================
@@ -129,6 +120,7 @@ function processDiagnostics() {
 function renderSimulation(ctx) {
 
     renderPlatform(ctx);
+
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
@@ -139,8 +131,6 @@ function renderSimulation(ctx) {
 // PRELOAD STUFF
 // =============
 
-var g_images = {};
-
 function requestPreloads() {
 
     var requiredImages = {
@@ -148,14 +138,14 @@ function requestPreloads() {
         char_l  : "images/character/2D_GOBLIN_L.png",
         enemy_l : "images/enemies/enemy-l.png",
         enemy_r : "images/enemies/enemy-r.png",
+        f_enemy_l : "images/enemies/f-enemy1-l.png",
+        f_enemy_r : "images/enemies/f-enemy1-r.png",
         heart : "images/misc/heart15px.png",
         collectible : "images/collectibles/bomb.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
 }
-
-var g_sprites = {};
 
 function preloadDone() {
 
@@ -164,15 +154,14 @@ function preloadDone() {
 
     g_sprites.enemy_l = new Sprite(g_images.enemy_l);
     g_sprites.enemy_r = new Sprite(g_images.enemy_r);
+    g_sprites.f_enemy_l = new Sprite(g_images.f_enemy_l);
+    g_sprites.f_enemy_r = new Sprite(g_images.f_enemy_r);
 
     g_sprites.heart = new Sprite(g_images.heart);
 
     g_sprites.collectible = new Sprite(g_images.collectible);
 
-    entityManager.init();
-    generateCollectibles(platform);
-    createInitialCharacter();
-    createEnemies();
+    startGame();
 
     main.init();
 }

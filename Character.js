@@ -13,6 +13,8 @@ function Character(descr) {
   this._width = this.sprite.width;
   this._height = this.sprite.height;
   this.radius = this._width/2;
+
+  this.isCharacter = true;
 }
 
 // Character is an Entity
@@ -28,7 +30,7 @@ Character.prototype.rememberResets = function () {
 Character.prototype.leftBound = 0;
 Character.prototype.rightBound = 600;
 
-Character.prototype.cx = 500;
+Character.prototype.cx = 450;
 Character.prototype.cy = 568;
 Character.prototype.velY = 0.0;
 Character.prototype.velX = 7.5;
@@ -71,7 +73,7 @@ Character.prototype._updateDeath = function (du) {
 
     if (this._scale < 0.2) {
 
-        this._moveToStart();
+        this.moveToStart();
         this._scaleDirn = 1;
 
     } else if (this._scale > 1) {
@@ -86,7 +88,7 @@ Character.prototype._updateDeath = function (du) {
     }
 };
 
-Character.prototype._moveToStart = function () {
+Character.prototype.moveToStart = function () {
 
   this.cx = this.reset_cx;
   this.cy = this.reset_cy;
