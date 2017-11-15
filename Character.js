@@ -124,7 +124,9 @@ Character.prototype.update = function (du) {
   if (this.velY !== 0.0) this.onGround = false;
 
   // All that goes up, must come down.
-  if (!platformCollidesWith(this.cx, this.cy+this._height/2)) this.velY += this.gravity * du;
+  if (platformCollidesWith(this.cx, this.cy+this._height/2)) {
+    this.cy = platformCollidesWith(this.cx, this.cy+this._height/2) - this._height/2 + 5;
+  } else this.velY += this.gravity * du;
   this.cy += this.velY * du;
 
   //"no gravity" if character is on platform
@@ -161,12 +163,12 @@ Character.prototype.render = function (ctx) {
   var origScale = this.sprite.scale;
 
   this.sprite.scale = this._scale;
-  this.sprite.drawWrappedCentredAt(ctx, this.cx, this.cy, this.rotation);
+  this.sprite.drawCentredAt(ctx, this.cx, this.cy, this.rotation);
   this.sprite.scale = origScale;
 
   for (var i = 0; i < this.health; i++) {
     var lifeX = g_canvas.width - this.lifeSprite.width - i*this.lifeSprite.width;
     var lifeY = 0 + this.lifeSprite.height;
-    this.lifeSprite.drawWrappedCentredAt(ctx, lifeX, lifeY, 0);
+    this.lifeSprite.drawCentredAt(ctx, lifeX, lifeY, 0);
   }
 };

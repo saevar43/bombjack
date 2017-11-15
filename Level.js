@@ -122,17 +122,17 @@ function renderPlatform(ctx) {
 // Platform collision.
 function platformCollidesWith(nextX, nextY) {
     var j = Math.round((nextX-20)/40); //hér er x gildið, eða j gildi fylkisins
-    var i = Math.round((nextY-50)/25); //hér er y gildið, eða i gildi fylkisins
+    var i = Math.ceil((nextY-40)/25); //hér er y gildið, eða i gildi fylkisins
     if (i<0 || i>22) return false;
     if (j<0 || j>14) return false;
     if (g_currentLevel.number === 1) {
-      if (level1.array[i][j] === 1) return true;
+      if (level1.array[i][j] === 1) return (40+i*25)-halfHeight;
     }
     if (g_currentLevel.number === 2) {
-      if (level2.array[i][j] === 1) return true;
+      if (level2.array[i][j] === 1) return (40+i*25)-halfHeight;
     }
     if (g_currentLevel.number === 3) {
-      if (level3.array[i][j] === 1) return true;
+      if (level3.array[i][j] === 1) return (40+i*25)-halfHeight;
     }
     return false; //no collision
 }

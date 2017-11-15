@@ -82,6 +82,6 @@ Enemy.prototype.render = function (ctx) {
   var origScale = this.sprite.scale;
 
   this.sprite.scale = this._scale;
-  this.sprite.drawWrappedCentredAt(ctx, this.cx, this.cy, this.rotation);
+  this.sprite.drawCentredAt(ctx, this.cx, this.cy, this.rotation);
   this.sprite.scale = origScale;
 };
