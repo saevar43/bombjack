@@ -130,7 +130,7 @@ var level3 = new Level({
   ],
 
   enemies : [
-    {rightBound: 600},
+    {rightBound: 425},
     {flying: true,
      cx: 400,
      cy: 400,

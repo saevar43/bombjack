@@ -3,7 +3,19 @@ function Character(descr) {
 
   this.rememberResets();
 
-  this.sprite = g_sprites.char_l;
+  this.sprites_run_r = [g_sprites.char_run_r,
+    g_sprites.char_run2_r,
+    g_sprites.char_run3_r,
+    g_sprites.char_run4_r,
+    g_sprites.char_run5_r
+  ];
+  this.sprites_run_l = [g_sprites.char_run_l,
+    g_sprites.char_run2_l,
+    g_sprites.char_run3_l,
+    g_sprites.char_run4_l,
+    g_sprites.char_run5_l
+  ];
+  this.sprite = g_sprites.char_r;
   this.lifeSprite = g_sprites.heart;
   this._scale = 1;
   this._isDying = false;
@@ -12,7 +24,7 @@ function Character(descr) {
 
   this._width = this.sprite.width;
   this._height = this.sprite.height;
-  this.radius = this._width/2;
+  this.radius = this._height/2 - 2;
 
   this.isCharacter = true;
 }
@@ -27,8 +39,8 @@ Character.prototype.rememberResets = function () {
 };
 
 // Prototype assets
-Character.prototype.leftBound = 0;
-Character.prototype.rightBound = 600;
+Character.prototype.leftBound = 10;
+Character.prototype.rightBound = 590;
 
 Character.prototype.cx = 450;
 Character.prototype.cy = 568;
@@ -38,6 +50,9 @@ Character.prototype.velX = 7.5;
 Character.prototype.onGround = true;
 Character.prototype.gravity = 2.5;
 
+Character.prototype.animCount = 0;
+Character.prototype.right;
+
 // Control keys
 Character.prototype.GO_LEFT = 'A'.charCodeAt(0);
 Character.prototype.GO_RIGHT = 'D'.charCodeAt(0);
@@ -46,7 +61,6 @@ Character.prototype.JUMP = 'W'.charCodeAt(0);
 Character.prototype.resetChar = function () {
   this.setPos(this.reset_cx, this.reset_cy);
   spatialManager.unregister(this);
-  console.log("RESET!");
 };
 
 Character.prototype.startJump = function (du) {
@@ -108,16 +122,46 @@ Character.prototype.update = function (du) {
   spatialManager.unregister(this);
   if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
-  if (keys[this.GO_LEFT] && this.cx - (this._width/2) > this.leftBound) {
+  if (this.right) {
+    this.sprite = g_sprites.char_r;
+  } else {
     this.sprite = g_sprites.char_l;
+  }
+
+  if (keys[this.GO_LEFT] && this.cx - (this._width/2) > this.leftBound) {
+    // Animation
+    this.sprite = this.sprites_run_l[this.animCount];
+    this.animCount++;
+    if (this.animCount === this.sprites_run_l.length) this.animCount = 0;
+    this.right = false;
+
     this.cx -= this.velX * du;
   }
   if (keys[this.GO_RIGHT] && this.cx + (this._width/2) < this.rightBound) {
-    this.sprite = g_sprites.char_r;
+    // Animation
+    this.sprite = this.sprites_run_r[this.animCount];
+    this.animCount++;
+    if (this.animCount === this.sprites_run_r.length) this.animCount = 0;
+    this.right = true;
+
     this.cx += this.velX * du;
   }
   if (eatKey(this.JUMP)) {
     this.startJump(du);
+  }
+
+  // Jump and fall animations.
+  if (this.velY < 0 && !this.right) {
+    this.sprite = g_sprites.char_jump_l;
+  }
+  if (this.velY < 0 && this.right) {
+    this.sprite = g_sprites.char_jump_r;
+  }
+  if (this.velY > 0 && !this.right) {
+    this.sprite = g_sprites.char_fall_l;
+  }
+  if (this.velY > 0 && this.right) {
+    this.sprite = g_sprites.char_fall_r;
   }
 
   // Can't jump while airborne
@@ -126,7 +170,9 @@ Character.prototype.update = function (du) {
   // All that goes up, must come down.
   if (platformCollidesWith(this.cx, this.cy+this._height/2)) {
     this.cy = platformCollidesWith(this.cx, this.cy+this._height/2) - this._height/2 + 5;
-  } else this.velY += this.gravity * du;
+  }else {
+    this.velY += this.gravity * du;
+  }
   this.cy += this.velY * du;
 
   //"no gravity" if character is on platform
