@@ -97,14 +97,14 @@ var halfWidth = 20;
 function fillPlatform(ctx, x, y) {
     var oldStyle = ctx.fillStyle;
     ctx.fill();
-    ctx.fillStyle = "grey";
+    ctx.fillStyle = "rgb(255,209,26)";
     ctx.fillRect(x - halfWidth, y - halfHeight, halfWidth *2, halfHeight*2);
     ctx.fillStyle = oldStyle;
 }
 
 // Render platforms.
 function renderPlatform(ctx) {
-  for (var i = 0; i < 23; i++) { //23 hæðir/línur
+  for (var i = 0; i < 23; i++) {
 		for (var j = 0; j < 15; j++) {
       var newcx = 20+j*40;
       var newcy = 40+i*25;
@@ -114,6 +114,10 @@ function renderPlatform(ctx) {
         if (level2.array[i][j] === 1) fillPlatform(ctx, newcx, newcy);
       } else if (g_currentLevel.number === 3) {
         if (level3.array[i][j] === 1) fillPlatform(ctx, newcx, newcy);
+      } else if (g_currentLevel.number === 4) {
+        if (level4.array[i][j] === 1) fillPlatform(ctx, newcx, newcy);
+      } else if (g_currentLevel.number === 5) {
+        if (level5.array[i][j] === 1) fillPlatform(ctx, newcx, newcy);
       }
     }
 	}
@@ -133,6 +137,12 @@ function platformCollidesWith(nextX, nextY) {
     }
     if (g_currentLevel.number === 3) {
       if (level3.array[i][j] === 1) return (40+i*25)-halfHeight;
+    }
+    if (g_currentLevel.number === 4) {
+      if (level4.array[i][j] === 1) return (40+i*25)-halfHeight;
+    }
+    if (g_currentLevel.number === 5) {
+      if (level5.array[i][j] === 1) return (40+i*25)-halfHeight;
     }
     return false; //no collision
 }

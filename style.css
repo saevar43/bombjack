@@ -1,0 +1,65 @@
+html {
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#startScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-image: url("images/backgrounds/menu_background.png");
+  border: 1px solid black;
+  width: 600px;
+  height: 600px;
+}
+
+#gameOver {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Arial", sans-serif;
+  font-size: 30px;
+  color: white;
+  background-image: url("images/backgrounds/menu_background.png");
+  border: 1px solid black;
+  width: 600px;
+  height: 600px;
+}
+
+#youWin {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Arial", sans-serif;
+  font-size: 30px;
+  color: white;
+  background-image: url("images/backgrounds/menu_background.png");
+  border: 1px solid black;
+  width: 600px;
+  height: 600px;
+}
+
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+#myCanvas {
+  display: none;
+  border: 1px solid black;
+}

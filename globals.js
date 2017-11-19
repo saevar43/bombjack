@@ -22,6 +22,8 @@ var g_sprites = {};
 // Game specific globals.
 var g_currentLevel;
 var g_playerChar;
+var g_onMenu;
+var jumpSound = new Audio('audio/jump.wav');
 
 // Diagnostic globals.
 var g_allowMixedActions = true;

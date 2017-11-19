@@ -38,13 +38,32 @@ need to tweak it if you do something "non-obvious" in yours.
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
-// =======================
-// CREATE INITIAL ENTITIES
-// =======================
+// ==============
+// GAME FUNCTIONS
+// ==============
 
 // Player character.
 function createInitialCharacter() {
      entityManager.generateCharacter();
+}
+
+function showGame() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("myCanvas").style.display = "block";
+}
+
+function showGameOver() {
+  document.getElementById("myCanvas").style.display = "none";
+  document.getElementById("gameOver").style.display = "flex";
+}
+
+function showYouWin() {
+  document.getElementById("myCanvas").style.display = "none";
+  document.getElementById("youWin").style.display = "flex";
+}
+
+function levelUp() {
+
 }
 
 
@@ -76,6 +95,10 @@ function updateSimulation(du) {
 
     processDiagnostics();
 
+    if (g_playerChar.health === 0) {
+      showGameOver();
+    }
+
     entityManager.update(du);
 
     if (g_currentLevel.number === 1 && g_currentLevel.collectibles === 0) {
@@ -84,6 +107,17 @@ function updateSimulation(du) {
 
     if (g_currentLevel.number === 2 && g_currentLevel.collectibles === 0) {
       startLevel(level3);
+    }
+
+    if (g_currentLevel.number === 3 && g_currentLevel.collectibles === 0) {
+      startLevel(level4);
+    }
+    if (g_currentLevel.number === 4 && g_currentLevel.collectibles === 0) {
+      startLevel(level5);
+    }
+
+    if (g_currentLevel.number === 5 && g_currentLevel.collectibles === 0) {
+      showYouWin();
     }
 }
 
@@ -97,6 +131,8 @@ var KEY_SPATIAL = keyCode('X');
 var KEY_LEVEL1 = keyCode('1');
 var KEY_LEVEL2 = keyCode('2');
 var KEY_LEVEL3 = keyCode('3');
+var KEY_LEVEL4 = keyCode('4');
+var KEY_LEVEL5 = keyCode('5');
 
 function processDiagnostics() {
 
@@ -111,6 +147,10 @@ function processDiagnostics() {
     if (eatKey(KEY_LEVEL2)) startLevel(level2);
 
     if (eatKey(KEY_LEVEL3)) startLevel(level3);
+
+    if (eatKey(KEY_LEVEL4)) startLevel(level4);
+
+    if (eatKey(KEY_LEVEL5)) startLevel(level5);
 }
 
 // =================
@@ -124,6 +164,7 @@ function renderSimulation(ctx) {
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
+
 }
 
 
@@ -154,12 +195,12 @@ function requestPreloads() {
         enemy_l : "images/enemies/enemy-l.png",
         enemy_r : "images/enemies/enemy-r.png",
         f_enemy_l : "images/enemies/f-enemy1-l.png",
-        f_enemy2_l : "images/enemies/f-enemy2-l.png",
         f_enemy_r : "images/enemies/f-enemy1-r.png",
-        f_enemy2_r : "images/enemies/f-enemy2-r.png",
 
         heart : "images/misc/heart15px.png",
-        collectible : "images/collectibles/bomb.png"
+        collectible : "images/collectibles/donut.png",
+
+        menubutton : "images/misc/menu_button1.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -188,10 +229,8 @@ function preloadDone() {
     g_sprites.enemy_r = new Sprite(g_images.enemy_r);
     g_sprites.f_enemy_l = new Sprite(g_images.f_enemy_l);
     g_sprites.f_enemy_r = new Sprite(g_images.f_enemy_r);
-    g_sprites.f_enemy2_l = new Sprite(g_images.f_enemy2_l);
-    g_sprites.f_enemy2_r = new Sprite(g_images.f_enemy2_r);
-    g_sprites.heart = new Sprite(g_images.heart);
 
+    g_sprites.heart = new Sprite(g_images.heart);
     g_sprites.collectible = new Sprite(g_images.collectible);
 
     startGame();

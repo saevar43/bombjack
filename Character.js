@@ -147,6 +147,8 @@ Character.prototype.update = function (du) {
     this.cx += this.velX * du;
   }
   if (eatKey(this.JUMP)) {
+    jumpSound.volume = 0.5;
+    jumpSound.play();
     this.startJump(du);
   }
 
@@ -171,7 +173,7 @@ Character.prototype.update = function (du) {
   if (platformCollidesWith(this.cx, this.cy+this._height/2)) {
     this.cy = platformCollidesWith(this.cx, this.cy+this._height/2) - this._height/2 + 5;
   }else {
-    this.velY += this.gravity * du;
+    if (this.velY < 30.0) this.velY += this.gravity * du;
   }
   this.cy += this.velY * du;
 
