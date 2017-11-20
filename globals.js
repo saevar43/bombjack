@@ -26,6 +26,7 @@ var g_gameOver;
 var jumpSound = new Audio('audio/jump.wav');
 var theme = new Audio('audio/theme.mp3');
 var gameOver = new Audio('audio/gameover.mp3');
+var damage = new Audio('audio/damage.wav');
 
 // Diagnostic globals.
 var g_allowMixedActions = true;

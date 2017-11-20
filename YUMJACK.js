@@ -72,7 +72,7 @@ function showYouWin() {
 }
 
 function levelUp() {
-
+  // nvm
 }
 
 
@@ -142,11 +142,13 @@ function updateSimulation(du) {
 var KEY_MIXED   = keyCode('M');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
-var KEY_LEVEL1 = keyCode('1');
-var KEY_LEVEL2 = keyCode('2');
-var KEY_LEVEL3 = keyCode('3');
-var KEY_LEVEL4 = keyCode('4');
-var KEY_LEVEL5 = keyCode('5');
+
+// Toggle this to bea able to switch between levels.
+// var KEY_LEVEL1 = keyCode('1');
+// var KEY_LEVEL2 = keyCode('2');
+// var KEY_LEVEL3 = keyCode('3');
+// var KEY_LEVEL4 = keyCode('4');
+// var KEY_LEVEL5 = keyCode('5');
 
 function processDiagnostics() {
 
@@ -156,15 +158,16 @@ function processDiagnostics() {
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
 
-    if (eatKey(KEY_LEVEL1)) startLevel(level1);
-
-    if (eatKey(KEY_LEVEL2)) startLevel(level2);
-
-    if (eatKey(KEY_LEVEL3)) startLevel(level3);
-
-    if (eatKey(KEY_LEVEL4)) startLevel(level4);
-
-    if (eatKey(KEY_LEVEL5)) startLevel(level5);
+    // Toggle this to be able to switch between levels.
+    // if (eatKey(KEY_LEVEL1)) startLevel(level1);
+    //
+    // if (eatKey(KEY_LEVEL2)) startLevel(level2);
+    //
+    // if (eatKey(KEY_LEVEL3)) startLevel(level3);
+    //
+    // if (eatKey(KEY_LEVEL4)) startLevel(level4);
+    //
+    // if (eatKey(KEY_LEVEL5)) startLevel(level5);
 }
 
 // =================

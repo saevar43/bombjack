@@ -71,6 +71,9 @@ Character.prototype.startJump = function (du) {
 
 Character.prototype.die = function () {
 
+    damage.volume = 0.8;
+    damage.play();
+
     this._isDying = true;
     this._scaleDirn = -1;
     this.health -= 1;
@@ -147,7 +150,7 @@ Character.prototype.update = function (du) {
     this.cx += this.velX * du;
   }
   if (eatKey(this.JUMP)) {
-    jumpSound.volume = 0.5;
+    jumpSound.volume = 0.3;
     jumpSound.play();
     this.startJump(du);
   }
