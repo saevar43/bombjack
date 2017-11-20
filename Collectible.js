@@ -19,6 +19,9 @@ Collectible.prototype.update = function(du) {
   if (this._isCollected) return entityManager.KILL_ME_NOW;
 
   if (this.isColliding().isCharacter) {
+    eat.volume = 1;
+    eat.play();
+
     this._isCollected = true;
     g_currentLevel.collectibles--;
   } else {

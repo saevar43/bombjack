@@ -103,8 +103,12 @@ function gatherInputs() {
 function updateSimulation(du) {
 
     if (!g_gameOver) {
-      theme.volume = 0.3;
       theme.play();
+    }
+    if (muteThemeSong) {
+      theme.volume = 0.3;
+    } else {
+      theme.volume = 0;
     }
 
     processDiagnostics();
@@ -139,9 +143,12 @@ function updateSimulation(du) {
 // GAME-SPECIFIC DIAGNOSTICS
 // =========================
 
-var KEY_MIXED   = keyCode('M');
+var KEY_MIXED   = keyCode('N');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
+
+var TOGGLE_THEME = 'M'.charCodeAt(0);
+var muteThemeSong = true;
 
 // Toggle this to bea able to switch between levels.
 // var KEY_LEVEL1 = keyCode('1');
@@ -157,6 +164,8 @@ function processDiagnostics() {
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
+
+    if (eatKey(TOGGLE_THEME)) muteThemeSong = !muteThemeSong;
 
     // Toggle this to be able to switch between levels.
     // if (eatKey(KEY_LEVEL1)) startLevel(level1);

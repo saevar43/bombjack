@@ -14,6 +14,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  font-family: "Arial", sans-serif;
+  font-size: 30px;
+  color: white;
+  text-align: center;
   background-image: url("images/backgrounds/menu_background.png");
   border: 1px solid black;
   width: 600px;

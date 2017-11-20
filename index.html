@@ -1,67 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Yum!Jack</title>
-    <link rel="stylesheet" href="style.css"/>
-  </head>
-  <body>
-    <div id="startScreen">
-      <img src="images/misc/yumjack-title.png"/>
-      <button onclick="showGame()">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Yum!Jack</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="startScreen">
+    <img src="images/misc/yumjack-title.png" />
+    <img src="images/misc/menu_img.png" />
+    <button onclick="showGame()">
         <img src="images/misc/menu_button.png"/>
       </button>
-      <img src="images/misc/menu_img.png"/>
-    </div>
+    <h5>Instructions:<br>| Left: A | Jump: W | Right: D |<br>Music on/off: M</h5>
 
-    <div id="gameOver">
-      <h1>GAME OVER</h1>
-      <h5>Refresh page to play again</h5>
-      <img src="images/misc/gameover_img.png"/>
-    </div>
+  </div>
 
-    <div id="youWin">
-      <h1>Congratulations!</h1>
-      <h3> YOU WIN!!!</h3>
-      <h5>Refresh page to play again</h5>
-      <img src="images/misc/menu_img.png"/>
-    </div>
+  <div id="gameOver">
+    <h1>GAME OVER</h1>
+    <h5>Refresh page to play again</h5>
+    <img src="images/misc/gameover_img.png" />
+  </div>
 
-    <canvas id="myCanvas" width="600" height="600">
+  <div id="youWin">
+    <h1>Congratulations!</h1>
+    <h3> YOU WIN!!!</h3>
+    <h5>Refresh page to play again</h5>
+    <img src="images/misc/menu_img.png" />
+  </div>
+
+  <canvas id="myCanvas" width="600" height="600">
   	  Sorry, but your browser does not support the HTML5 canvas tag.
   	</canvas>
 
 
 
-    <div id="output"></div>
+  <div id="output"></div>
 
-    <script src="globals.js"></script>
-    <script src="consts.js"></script>
-    <script src="util.js"></script>
-    <script src="keys.js"></script>
-    <script src="handleMouse.js"></script>
+  <script src="globals.js"></script>
+  <script src="consts.js"></script>
+  <script src="util.js"></script>
+  <script src="keys.js"></script>
+  <script src="handleMouse.js"></script>
 
-    <script src="spatialManager.js"></script>
-    <script src="entityManager.js"></script>
+  <script src="spatialManager.js"></script>
+  <script src="entityManager.js"></script>
 
-    <script src="Sprite.js"></script>
+  <script src="Sprite.js"></script>
 
-    <script src="Entity.js"></script>
-    <script src="Character.js"></script>
-    <script src="Enemy.js"></script>
-    <script src="Collectible.js"></script>
+  <script src="Entity.js"></script>
+  <script src="Character.js"></script>
+  <script src="Enemy.js"></script>
+  <script src="Collectible.js"></script>
 
-    <script src="Level.js"></script>
-    <script src="levels.js"></script>
+  <script src="Level.js"></script>
+  <script src="levels.js"></script>
 
 
-    <script src="update.js"></script>
-    <script src="render.js"></script>
+  <script src="update.js"></script>
+  <script src="render.js"></script>
 
-    <script src="imagesPreload.js"></script>
-    <script src="main.js"></script>
+  <script src="imagesPreload.js"></script>
+  <script src="main.js"></script>
 
-    <script src="YUMJACK.js"></script>
+  <script src="YUMJACK.js"></script>
 
-  </body>
+</body>
+
 </html>
