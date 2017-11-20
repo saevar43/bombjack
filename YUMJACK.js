@@ -143,9 +143,11 @@ function updateSimulation(du) {
 // GAME-SPECIFIC DIAGNOSTICS
 // =========================
 
+/*
 var KEY_MIXED   = keyCode('N');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
+*/
 
 var TOGGLE_THEME = 'M'.charCodeAt(0);
 var muteThemeSong = true;
@@ -159,11 +161,13 @@ var muteThemeSong = true;
 
 function processDiagnostics() {
 
+    /*
     if (eatKey(KEY_MIXED)) g_allowMixedActions = !g_allowMixedActions;
 
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
+    */
 
     if (eatKey(TOGGLE_THEME)) muteThemeSong = !muteThemeSong;
 
