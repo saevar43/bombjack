@@ -52,7 +52,16 @@ function showGame() {
   document.getElementById("myCanvas").style.display = "block";
 }
 
+var gameOverCount = 0;
+
 function showGameOver() {
+  g_gameOver = true;
+  theme.pause();
+  if (gameOverCount < 1) {
+    gameOver.volume = 0.3;
+    gameOver.play();
+    gameOverCount++;
+  }
   document.getElementById("myCanvas").style.display = "none";
   document.getElementById("gameOver").style.display = "flex";
 }
@@ -92,6 +101,11 @@ function gatherInputs() {
 // GAME-SPECIFIC UPDATE LOGIC
 
 function updateSimulation(du) {
+
+    if (!g_gameOver) {
+      theme.volume = 0.3;
+      theme.play();
+    }
 
     processDiagnostics();
 
@@ -232,6 +246,8 @@ function preloadDone() {
 
     g_sprites.heart = new Sprite(g_images.heart);
     g_sprites.collectible = new Sprite(g_images.collectible);
+
+    g_gameOver = false;
 
     startGame();
 
